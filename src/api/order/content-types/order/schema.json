@@ -1,0 +1,50 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "orderNo": {
+      "type": "string"
+    },
+    "appointment": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::appointment.appointment"
+    },
+    "services": {
+      "type": "json"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "Draft",
+        "Paid",
+        "Unpaid",
+        "Canceled"
+      ],
+      "default": "Draft",
+      "required": true
+    },
+    "orderBy": {
+      "type": "string"
+    },
+    "cash": {
+      "type": "decimal"
+    },
+    "notes": {
+      "type": "string"
+    },
+    "discount": {
+      "type": "decimal"
+    }
+  }
+}
