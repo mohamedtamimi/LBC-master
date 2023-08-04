@@ -13,7 +13,9 @@
   "pluginOptions": {},
   "attributes": {
     "orderNo": {
-      "type": "string"
+      "type": "string",
+      "required": true,
+      "unique": true
     },
     "appointment": {
       "type": "relation",

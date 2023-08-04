@@ -14,7 +14,8 @@
   "attributes": {
     "number": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
     },
     "customer": {
       "type": "json",
