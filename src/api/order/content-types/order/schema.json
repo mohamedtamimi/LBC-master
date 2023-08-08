@@ -47,6 +47,13 @@
     },
     "discount": {
       "type": "decimal"
+    },
+    "discountType": {
+      "type": "enumeration",
+      "enum": [
+        "cash",
+        "percent"
+      ]
     }
   }
 }
