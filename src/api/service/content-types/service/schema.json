@@ -22,6 +22,14 @@
     },
     "deletedBy": {
       "type": "string"
+    },
+    "price": {
+      "type": "decimal",
+      "required": true
+    },
+    "hide": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
