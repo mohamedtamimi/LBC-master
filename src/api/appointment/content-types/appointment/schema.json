@@ -74,6 +74,9 @@
     },
     "services": {
       "type": "json"
+    },
+    "products": {
+      "type": "json"
     }
   }
 }
