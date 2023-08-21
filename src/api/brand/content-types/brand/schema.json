@@ -4,7 +4,8 @@
   "info": {
     "singularName": "brand",
     "pluralName": "brands",
-    "displayName": "brand"
+    "displayName": "brand",
+    "description": ""
   },
   "options": {
     "draftAndPublish": false
@@ -13,6 +14,10 @@
   "attributes": {
     "name": {
       "type": "string"
+    },
+    "hide": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

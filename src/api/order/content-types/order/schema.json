@@ -54,6 +54,9 @@
         "cash",
         "percent"
       ]
+    },
+    "products": {
+      "type": "json"
     }
   }
 }

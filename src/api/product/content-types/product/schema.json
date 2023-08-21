@@ -37,6 +37,10 @@
     },
     "lastUpdated": {
       "type": "string"
+    },
+    "hide": {
+      "type": "boolean",
+      "default": false
     }
   }
 }
