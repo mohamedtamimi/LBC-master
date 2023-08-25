@@ -57,6 +57,11 @@
     },
     "products": {
       "type": "json"
+    },
+    "pay_by": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::pay-by.pay-by"
     }
   }
 }
