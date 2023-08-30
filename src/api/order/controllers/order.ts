@@ -21,7 +21,9 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             const entities = await strapi.entityService.findMany('api::order.order', {
                 populate: { someRelation: true },
                 filters: {
-                    createdAt: { $gt: currentDate.toISOString(), $ls: nextDay.toISOString() },
+                    createdAt: { $between: [currentDate.toISOString(), nextDay.toISOString()],},
+                      
+                    
                     status: { $ne: 'Canceled' }
                 }
             });
