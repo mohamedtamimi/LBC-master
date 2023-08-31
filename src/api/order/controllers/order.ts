@@ -6,22 +6,19 @@
 import { factories } from '@strapi/strapi'
 
 const { createCoreController } = require('@strapi/strapi').factories;
-
+const { DateTime } = require('luxon');
 
 
 module.exports = createCoreController('api::order.order', ({ strapi }) => ({
     async count(ctx) {
         try {
-            const currentDate = new Date();
-            currentDate.setHours(0, 0, 0, 0); // Set time to the beginning of the day
-            const nextDay = new Date(currentDate);
-            nextDay.setDate(nextDay.getDate() + 1); // Set time to the beginning of the next day
+            const currentDate = DateTime.now().startOf('day');
             let unPiad = []
             let darft = []
             const entities = await strapi.entityService.findMany('api::order.order', {
                 populate: { someRelation: true },
                 filters: {
-                    createdAt: { $between: [currentDate.toISOString(), nextDay.toISOString()],},
+                    createdAt: { $between: [currentDate.toJSDate(),currentDate.plus({ days: 1 }).toJSDate()],},
                       
                     
                     status: { $ne: 'Canceled' }
@@ -72,8 +69,9 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             let draftLenght = draft.length
 
             let body={
-             curernty:   currentDate.toISOString(),
-              next:   nextDay.toISOString()
+                date: currentDate,
+             curernty:  currentDate.toJSDate(),
+              next: currentDate.plus({ days: 1 }).toJSDate()
             }
 
 
