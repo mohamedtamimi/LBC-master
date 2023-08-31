@@ -71,11 +71,14 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             });
             let draftLenght = draft.length
 
+            let body={
+             curernty:   currentDate.toISOString(),
+              next:   nextDay.toISOString()
+            }
 
 
 
-
-            ctx.send({ entities, sum, canceldLenght,paidLenght,unpaidLenght,draftLenght });
+            ctx.send({ entities, sum, canceldLenght,paidLenght,unpaidLenght,draftLenght,body });
             return { sum };
         } catch (error) {
             console.error(error);
