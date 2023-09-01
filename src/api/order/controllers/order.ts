@@ -12,13 +12,19 @@ const { DateTime } = require('luxon');
 module.exports = createCoreController('api::order.order', ({ strapi }) => ({
     async count(ctx) {
         try {
-            const currentDate = DateTime.now().startOf('day');
-            let unPiad = []
-            let darft = []
+            const { startDate, endDate } = ctx.request.query;
+
+            const startDateTime = DateTime.fromISO(startDate).startOf('day').toJSDate();
+            const endDateTime = DateTime.fromISO(endDate).endOf('day').toJSDate();
+
+            const currentDate = DateTime.now().startOf('day').toJSDate();
+            const currentEndDate = DateTime.now().endOf('day').toJSDate();
+            const bodycurrentDate=[currentDate,currentEndDate]
+            const selectedtDate=[startDateTime,endDateTime]
             const entities = await strapi.entityService.findMany('api::order.order', {
                 populate: { someRelation: true },
                 filters: {
-                    createdAt: { $between: [currentDate.toJSDate(),currentDate.plus({ days: 1 }).toJSDate()],},
+                    createdAt: { $between: startDate?selectedtDate:bodycurrentDate},
                       
                     
                     status: { $ne: 'Canceled' }
@@ -68,15 +74,9 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             });
             let draftLenght = draft.length
 
-            let body={
-                date: currentDate,
-             curernty:  currentDate.toJSDate(),
-              next: currentDate.plus({ days: 1 }).toJSDate()
-            }
 
 
-
-            ctx.send({ entities, sum, canceldLenght,paidLenght,unpaidLenght,draftLenght,body });
+            ctx.send({ entities, sum, canceldLenght,paidLenght,unpaidLenght,draftLenght });
             return { sum };
         } catch (error) {
             console.error(error);
