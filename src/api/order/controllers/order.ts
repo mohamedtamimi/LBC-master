@@ -12,6 +12,7 @@ const { DateTime } = require('luxon');
 module.exports = createCoreController('api::order.order', ({ strapi }) => ({
     async count(ctx) {
         try {
+
             const { startDate, endDate } = ctx.request.query;
 
             const startDateTime = DateTime.fromISO(startDate).startOf('day').toJSDate();
@@ -22,7 +23,7 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             const bodycurrentDate=[currentDate,currentEndDate]
             const selectedtDate=[startDateTime,endDateTime]
             const entities = await strapi.entityService.findMany('api::order.order', {
-                populate: { someRelation: true },
+                populate: '*',
                 filters: {
                     createdAt: { $between: startDate?selectedtDate:bodycurrentDate},
                       
@@ -77,7 +78,6 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
 
 
             ctx.send({ entities, sum, canceldLenght,paidLenght,unpaidLenght,draftLenght });
-            return { sum };
         } catch (error) {
             console.error(error);
             return ctx.throw(500, 'Internal Server Error');
