@@ -22,9 +22,6 @@
       "relation": "oneToOne",
       "target": "api::appointment.appointment"
     },
-    "services": {
-      "type": "json"
-    },
     "status": {
       "type": "enumeration",
       "enum": [
@@ -62,6 +59,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::pay-by.pay-by"
+    },
+    "employee": {
+      "type": "json"
+    },
+    "employees": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "orders"
     }
   }
 }

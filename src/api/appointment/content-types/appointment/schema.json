@@ -66,16 +66,10 @@
       "default": "Draft",
       "required": true
     },
-    "employee": {
-      "type": "relation",
-      "relation": "manyToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "appointments"
-    },
-    "services": {
+    "products": {
       "type": "json"
     },
-    "products": {
+    "employee": {
       "type": "json"
     }
   }

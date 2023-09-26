@@ -82,6 +82,55 @@ module.exports = createCoreController('api::order.order', ({ strapi }) => ({
             console.error(error);
             return ctx.throw(500, 'Internal Server Error');
         }
-    }
+    },
+    async searchs(ctx){
+        try {
+            const search = ctx.request.query;
+
+            const entities = await strapi.entityService.findMany('api::order.order', {
+                populate: '*',
+                filters: {
+                   
+                      
+                    
+                    "appointment.customer": {
+                        $or: [
+                          {  firstName: { $containsi: search },},
+                           { lastName: { $containsi: search }}
+                        ]
+                      }
+                }
+               
+            });
+            ctx.send({entities});
+        } catch (error) {
+            
+        }
+    },
+    async phoneNumbers(ctx){
+        const uniquePhones = {}; // This object will help track unique phone numbers
+const phones = [];
+        try {
+            const entities = await strapi.entityService.findMany('api::order.order', {
+                populate: '*',
+                filters: {
+                    status: { $ne: 'Canceled' }
+                }
+            });
+            entities.forEach(entity => {
+                const customer =entity.appointment.customer.firstName +' '+ entity.appointment.customer.middleName +' '+ entity.appointment.customer.lastName
+                const phoneNumber = entity.appointment.phone;
+
+                if (!uniquePhones[phoneNumber] && phoneNumber) {
+                    uniquePhones[phoneNumber] = true; 
+                    phones.push({ phone: phoneNumber, customer });
+                  }
+            });
+            ctx.send({phones});
+        } catch (error) {
+            
+        }
+    },
+
 
 }));

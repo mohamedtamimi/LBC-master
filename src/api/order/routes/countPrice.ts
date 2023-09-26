@@ -8,5 +8,22 @@ module.exports = {
               auth:  false
             }
         },
+        { // Path defined with a URL parameter
+            method: 'GET',
+            path: '/numbers',
+            handler: 'order.phoneNumbers',
+            config:{
+              auth:  false
+            }
+        },
+        { // Path defined with a URL parameter
+            method: 'GET',
+            path: '/searchCustomer',
+            handler: 'order.searchs',
+            config:{
+              auth:  false
+            }
+        },
+        
     ]
 }
